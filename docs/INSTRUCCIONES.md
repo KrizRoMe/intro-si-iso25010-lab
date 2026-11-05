@@ -43,48 +43,44 @@ configurar servidores.
 
 ## 4. Cómo abrir tu reporte
 
+Hay **un solo formulario** para todos los hallazgos. Cuando lo abres, lo
+primero que aparece es un **selector** donde eliges el **tipo de hallazgo**
+que encontraste.
+
 ### Opción A — desde el repositorio (recomendada)
 
-Abre la pestaña **New issue** del repositorio y elige el formulario:
+Abre la pestaña **New issue** del repositorio:
 
 <https://github.com/KrizRoMe/intro-si-iso25010-lab/issues/new>
 
-Te aparecerán 4 formularios:
+Te aparecerá el formulario **Reporte de Hallazgo (front-stage)**. Es el único,
+así que no hay que elegir entre varias opciones.
 
-| Formulario | Para reportar problemas de |
-|---|---|
-| **Hallazgo de Rendimiento (front-stage)** | Rendimiento |
-| **Hallazgo de Usabilidad (front-stage)** | Usabilidad |
-| **Hallazgo de Compatibilidad (front-stage)** | Compatibilidad |
-| **Hallazgo de Funcionalidad (front-stage)** | Funcionalidad |
+### Opción B — enlace directo
 
-### Opción B — enlace directo a un formulario
-
-Si ya sabes qué característica tiene tu hallazgo, ve directo:
-
-- Rendimiento → <https://github.com/KrizRoMe/intro-si-iso25010-lab/issues/new?template=hallazgo-rendimiento.yml>
-- Usabilidad → <https://github.com/KrizRoMe/intro-si-iso25010-lab/issues/new?template=hallazgo-usabilidad.yml>
-- Compatibilidad → <https://github.com/KrizRoMe/intro-si-iso25010-lab/issues/new?template=hallazgo-compatibilidad.yml>
-- Funcionalidad → <https://github.com/KrizRoMe/intro-si-iso25010-lab/issues/new?template=hallazgo-funcionalidad.yml>
+<https://github.com/KrizRoMe/intro-si-iso25010-lab/issues/new?template=hallazgo.yml>
 
 > **Abre el laboratorio en otra pestaña** antes de llenar el formulario. La
 > evidencia tiene que venir del sitio real.
 
 ---
 
-## 5. Qué pide cada formulario
+## 5. Qué pide el formulario
 
-Todos los formularios piden los mismos bloques. Los escribió tu docente para
-que el reporte se pueda corregir sin necesidad de preguntarte nada:
+Son 16 campos, siempre en el mismo orden:
 
 ### Identificación
 - **Nombre completo** — tal como figura en el curso
-- **Correo institucional**
 - **Sistema auditado** — ya viene con `ElectroHogar`
 
-### Ubicación y clasificación
-- **Página donde se observa el problema** (desplegable)
-- **Qué falla exactamente** (desplegable con las sub-características de ISO 25010)
+### Clasificación (aquí eliges el tipo de hallazgo)
+- **Tipo de hallazgo — característica ISO/IEC 25010** ← **este es el selector**
+  - Rendimiento
+  - Usabilidad
+  - Compatibilidad
+  - Funcionalidad
+- **Página donde se observa el problema** (selector)
+- **Aspecto que falla** (selector con el mecanismo general del fallo)
 
 ### El hallazgo
 - **Elemento que falla** — el elemento concreto, no "toda la página"
@@ -96,8 +92,7 @@ que el reporte se pueda corregir sin necesidad de preguntarte nada:
 - **Capturas de pantalla** — adjunta la imagen que lo demuestra
 
 ### Evaluación y solución
-- **Severidad** (desplegable)
-- **Usuario afectado** o **Principio relacionado** (desplegable, según la característica)
+- **Severidad** (selector) y **Usuario afectado** (selector)
 - **Solución propuesta** — un cambio concreto y verificable
 - **Conclusión técnica** — veredicto final en una o dos líneas
 
@@ -108,13 +103,15 @@ que el reporte se pueda corregir sin necesidad de preguntarte nada:
 
 ## 6. Ejemplo de cómo se ve un buen reporte
 
+> **Tipo de hallazgo:** Funcionalidad
+>
 > **Elemento que falla:** El campo de número de tarjeta en la página Finalizar compra.
 >
 > **Cómo se manifiesta el fallo:** Pongo 123 en el número de tarjeta y el sitio me confirma el pedido igual, como si el dato fuera válido. El usuario cree que todo está en orden y se lleva un cargo sin tarjeta real.
 >
 > **Cómo reproducirlo:**
 > 1. Entrar a "Finalizar compra".
-> 2. Llenar nombre, correo, dirección, ciudad y tipo de envío.
+> 2. Llenar nombre, dirección, ciudad y tipo de envío.
 > 3. Elegir "Tarjeta de crédito o débito" como método de pago.
 > 4. Escribir `123` en el número de tarjeta y `1` en el CVV.
 > 5. Presionar "Confirmar pedido".
@@ -157,7 +154,7 @@ No tienes que instalar nada. Todo se hace desde el navegador:
 - [ ] ¿Dije **cómo reproducirlo** con pasos numerados?
 - [ ] ¿Adjunté la evidencia (captura) que lo demuestra?
 - [ ] ¿Escribí con mis propias palabras?
-- [ ] ¿Mi nombre y correo están correctos?
+- [ ] ¿Mi nombre está correctamente escrito?
 - [ ] ¿No reporté algo del back-stage?
 
 ---

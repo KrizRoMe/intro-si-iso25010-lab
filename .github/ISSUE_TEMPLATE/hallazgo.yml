@@ -1,17 +1,16 @@
-name: Hallazgo de Usabilidad (front-stage)
-description: Reporta UN problema de usabilidad que dificulta usar ElectroHogar.
-title: "[Usabilidad] "
-labels: ["hallazgo", "usabilidad"]
+name: Reporte de Hallazgo (front-stage)
+description: Reporta UN problema de calidad front-stage (ISO/IEC 25010) encontrado en ElectroHogar.
+title: "[Hallazgo] "
+labels: ["hallazgo"]
 body:
   - type: markdown
     attributes:
       value: |
-        Reporta UN SOLO problema de usabilidad.
+        Reporta UN SOLO problema de calidad del sitio ElectroHogar.
 
-        El sitio auditado es: https://krizrome.github.io/intro-si-iso25010-lab/
+        Sitio auditado: https://krizrome.github.io/intro-si-iso25010-lab/
 
-        Requisitos: el problema debe ser visible por el usuario final (front-stage).
-        Cada hallazgo se reporta en un Issue independiente.
+        Cada problema se reporta en un Issue independiente. No mezcles hallazgos en un mismo reporte.
 
   - type: input
     id: estudiante
@@ -22,20 +21,26 @@ body:
       required: true
 
   - type: input
-    id: correo
-    attributes:
-      label: Correo institucional
-      placeholder: juan.perez@educa.edu.pe
-    validations:
-      required: true
-
-  - type: input
     id: sistema_auditado
     attributes:
       label: Sistema auditado
       value: ElectroHogar
     validations:
       required: true
+
+  - type: dropdown
+    id: tipo_hallazgo
+    attributes:
+      label: Tipo de hallazgo - caracteristica ISO/IEC 25010
+      description: Elige la caracteristica que mejor describa el problema que encontraste.
+      options:
+        - Rendimiento
+        - Usabilidad
+        - Compatibilidad
+        - Funcionalidad
+    validations:
+      required: true
+
   - type: dropdown
     id: pagina
     attributes:
@@ -51,16 +56,15 @@ body:
       required: true
 
   - type: dropdown
-    id: subcaracteristica
+    id: aspecto
     attributes:
-      label: Que falla exactamente (elige una sola)
+      label: Aspecto que falla - elige una sola opcion
+      description: Como se manifiesta el fallo en terminos generales. El detalle concreto lo describes mas abajo.
       options:
-        - El usuario no entiende que hacer a continuacion
         - El resultado no corresponde a lo que el usuario pidio
-        - Falta informacion o retroalimentacion al usuario
-        - El control es dificil de usar o de alcanzar
-        - El sistema no se adapta a la forma de trabajar del usuario
-        - Ninguna de las anteriores (describir en el detalle)
+        - Falta informacion, aviso o confirmacion para el usuario
+        - El recurso o la carga es excesivo y ralentiza el sitio
+        - El elemento no se ve bien, no se entiende o no se puede usar
     validations:
       required: true
 
@@ -69,7 +73,7 @@ body:
     attributes:
       label: Elemento que falla
       description: Describe QUE elemento concreto falla, no la pagina entera.
-      placeholder: "El boton de quitar producto del carrito"
+      placeholder: "Los 8 imagenes de producto del catalogo"
     validations:
       required: true
 
@@ -78,7 +82,7 @@ body:
     attributes:
       label: Como se manifiesta el fallo
       description: Que le pasa al usuario. Usa tus propias palabras.
-      placeholder: "Escribo laptop en el buscador y sigue mostrando los 8 productos como si nada"
+      placeholder: "La pagina tarda mucho en mostrar los productos y el scroll se congela"
     validations:
       required: true
 
@@ -87,7 +91,7 @@ body:
     attributes:
       label: Como reproducirlo
       description: Pasos numerados para que otro alumno lo vea igual.
-      placeholder: "1. Entrar a Inicio  2. Poner 500 en precio desde  3. Poner 2000 en precio hasta"
+      placeholder: "1. Abrir Inicio  2. Esperar la carga  3. Desplazar la pagina"
     validations:
       required: true
 
@@ -96,7 +100,7 @@ body:
     attributes:
       label: Evidencia
       description: Que observaste o mediste que demuestra el problema. Escribe en tus propias palabras.
-      placeholder: "Al escribir una sola letra en el buscador, la pagina se queda pegada medio segundo"
+      placeholder: "Las 8 imagenes pesan 2 MB cada una y se cargan todas al abrir la pagina"
     validations:
       required: true
 
@@ -107,6 +111,7 @@ body:
       description: Adjunta la imagen que demuestra el problema. PNG o JPG hasta 10 MB.
     validations:
       required: false
+
   - type: dropdown
     id: severidad
     attributes:
@@ -119,18 +124,15 @@ body:
       required: true
 
   - type: dropdown
-    id: principio
+    id: usuario_afectado
     attributes:
-      label: Principio de usabilidad relacionado
+      label: Que usuario se ve afectado
       options:
-        - Visibilidad del estado del sistema
-        - Correspondencia con el mundo real
-        - Control y libertad del usuario
-        - Consistencia y estandar
-        - Prevention of errors (prevenir errores)
-        - Reconocer en vez de recordar
-        - Flexibilidad y eficiencia de uso
-        - No puedo identificarlo con seguridad
+        - Todos los usuarios
+        - Usuarios con conexion lenta o con equipos antiguos
+        - Usuarios en dispositivos moviles
+        - Usuarios que usan tecnologias de asistencia
+        - Solo usuarios que compran o pagan
     validations:
       required: true
 
@@ -139,7 +141,7 @@ body:
     attributes:
       label: Solucion propuesta
       description: Un cambio concreto y verificable que resolveria el problema.
-      placeholder: "Invertir la comparacion del filtro para que muestre los productos dentro del rango"
+      placeholder: "Comprimir las imagenes a WebP y agregar loading lazy a cada imagen"
     validations:
       required: true
 
@@ -148,7 +150,7 @@ body:
     attributes:
       label: Conclusion tecnica
       description: Veredicto final en una o dos lineas.
-      placeholder: "El filtro de precio hace lo contrario de lo que dice: descarta los productos que estan en el rango"
+      placeholder: "El sitio entrega 15 MB de imagenes sin comprimir antes de mostrar el catalogo"
     validations:
       required: true
 

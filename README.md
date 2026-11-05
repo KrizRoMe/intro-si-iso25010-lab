@@ -77,42 +77,37 @@ python3 -m http.server 8765
 
 ## 📋 Entrega: un Issue por problema
 
-Cada alumno abre **un Issue por cada problema que identifica**, usando el
-formulario que corresponde a la característica. Hay **4 formularios
-independientes**, y cada uno audita **UN SOLO problema**:
+Hay **un solo formulario** de reporte. Al ingresarlo, el alumno elige en un
+**selector desplegable** el tipo de hallazgo encontrado (la característica de
+ISO/IEC 25010) y documenta **UN SOLO problema** por Issue.
 
-| Formulario | Característica ISO 25010 |
+| Selector | Opciones |
 |---|---|
-| `hallazgo-rendimiento.yml` | Rendimiento |
-| `hallazgo-usabilidad.yml` | Usabilidad |
-| `hallazgo-compatibilidad.yml` | Compatibilidad |
-| `hallazgo-funcionalidad.yml` | Funcionalidad |
+| **Tipo de hallazgo** (característica ISO 25010) | Rendimiento · Usabilidad · Compatibilidad · Funcionalidad |
 
-**Directos para cada formulario** (evita el menú de selección):
+**Directo al formulario** (evita el menú de selección):
 
-- Rendimiento → <https://github.com/KrizRoMe/intro-si-iso25010-lab/issues/new?template=hallazgo-rendimiento.yml>
-- Usabilidad → <https://github.com/KrizRoMe/intro-si-iso25010-lab/issues/new?template=hallazgo-usabilidad.yml>
-- Compatibilidad → <https://github.com/KrizRoMe/intro-si-iso25010-lab/issues/new?template=hallazgo-compatibilidad.yml>
-- Funcionalidad → <https://github.com/KrizRoMe/intro-si-iso25010-lab/issues/new?template=hallazgo-funcionalidad.yml>
+<https://github.com/KrizRoMe/intro-si-iso25010-lab/issues/new?template=hallazgo.yml>
 
 ### Estructura del reporte
 
-Todos los formularios piden los mismos bloques, en el mismo orden:
+El formulario pide 16 campos, siempre en el mismo orden:
 
-1. **Nombre completo** y **correo institucional** — tu identidad
-2. **Sistema auditado** — `ElectroHogar`
-3. **Página** donde se observa el problema (dropdown)
-4. **Qué falla exactamente** (dropdown con las sub-características de ISO 25010)
-5. **Elemento que falla** — el elemento concreto, no la página entera
-6. **Cómo se manifiesta el fallo** — con tus propias palabras
-7. **Cómo reproducirlo** — pasos numerados
-8. **Evidencia** — qué mediste u observaste + **captura de pantalla**
-9. **Severidad** (dropdown) y **usuario afectado**
-10. **Solución propuesta** y **conclusión técnica**
+1. **Nombre completo** — tu identidad
+2. **Sistema auditado** — ya viene con `ElectroHogar`
+3. **Tipo de hallazgo** — selector: Rendimiento / Usabilidad / Compatibilidad / Funcionalidad
+4. **Página** donde se observa el problema (selector)
+5. **Aspecto que falla** — selector con el mecanismo general del fallo
+6. **Elemento que falla** — el elemento concreto, no la página entera
+7. **Cómo se manifiesta el fallo** — con tus propias palabras
+8. **Cómo reproducirlo** — pasos numerados
+9. **Evidencia** — qué mediste u observaste
+10. **Capturas de pantalla** — adjunto de la evidencia
+11. **Severidad** (selector) y **Usuario afectado** (selector)
+12. **Solución propuesta** y **conclusión técnica**
+13. **Verificación** — tres casillas de cierre
 
-La primera línea del Issue (el título) lleva el prefijo de la
-característica: `[Rendimiento]`, `[Usabilidad]`, `[Compatibilidad]` o
-`[Funcionalidad]`.
+La primera línea del Issue (el título) lleva el prefijo `[Hallazgo]`.
 
 ---
 
@@ -147,7 +142,7 @@ No hace falta instalar nada: todo se hace en el navegador.
 ├── assets/productos/       # 8 JPEG de ~2 MB sin optimizar (defecto R01)
 ├── docs/INSTRUCCIONES.md   # Guía paso a paso del alumno
 ├── scripts/                # Utilidades de verificación y generación
-└── .github/ISSUE_TEMPLATE/ # Los 4 formularios de reporte
+└── .github/ISSUE_TEMPLATE/ # El formulario único de reporte
 ```
 
 ---

@@ -22,20 +22,31 @@ import sys
 import yaml
 
 RAIZ = os.path.dirname(os.path.abspath(__file__))
-PATRON = os.path.join(RAIZ, '..', '.github', 'ISSUE_TEMPLATE', 'hallazgo-*.yml')
+PATRON = os.path.join(RAIZ, '..', '.github', 'ISSUE_TEMPLATE', '*.yml')
+FORM_ESPERADO = 'hallazgo.yml'
+TIPOS_ESPERADOS = {'markdown', 'input', 'dropdown', 'textarea', 'upload', 'checkboxes'}
 
 
 def main():
     rutas = sorted(glob.glob(PATRON))
-    if not rutas:
+    formularios = [r for r in rutas if os.path.basename(r) != 'config.yml']
+    if not formularios:
         print('No se encontraron formularios en %s' % PATRON)
         return 1
 
-    errores = []
-    print('Validando %d Issue Forms\n' % len(rutas))
+    if len(formularios) > 1:
+        print('ERROR: hay %d formularios. Se espera SOLO uno: %s' % (len(formularios), FORM_ESPERADO))
+        for r in formularios:
+            print('  - %s' % os.path.basename(r))
+        return 1
 
-    for ruta in rutas:
+    errores = []
+    print('Validando %d Issue Form\n' % len(formularios))
+
+    for ruta in formularios:
         nombre = os.path.basename(ruta)
+        if nombre != FORM_ESPERADO:
+            errores.append('%s: el unico formulario debe llamarse %s' % (nombre, FORM_ESPERADO))
         crudo = open(ruta, encoding='utf-8').read()
         try:
             t = yaml.safe_load(crudo)
@@ -117,6 +128,26 @@ def main():
         if not t.get('labels'):
             errores.append('%s: sin labels (se usara el default "hallazgo")' % nombre)
 
+        # --- requisitos especificos del formulario unico ---
+        ids_texto = ' '.join(ids)
+        if 'correo' in ids_texto or 'email' in ids_texto:
+            errores.append('%s: no debe pedir correo institucional' % nombre)
+        if 'tipo_hallazgo' not in ids:
+            errores.append('%s: falta el selector "tipo_hallazgo"' % nombre)
+        if 'estudiante' not in ids:
+            errores.append('%s: falta el campo de nombre del estudiante' % nombre)
+
+        # el selector de tipo debe ofrecer las 4 caracteristicas ISO 25010
+        sel = None
+        for s in t.get('body', []):
+            if s.get('id') == 'tipo_hallazgo':
+                sel = s
+        if sel:
+            ops = sel.get('attributes', {}).get('options', [])
+            faltantes = [c for c in ('Rendimiento', 'Usabilidad', 'Compatibilidad', 'Funcionalidad')
+                         if c not in ops]
+            if faltantes:
+                errores.append('%s: al selector tipo_hallazgo le faltan: %s' % (nombre, ', '.join(faltantes)))
         print('  OK  %-38s campos=%d  ids=%d' % (nombre, total_campos, len(ids)))
 
     print('\n' + '=' * 70)
