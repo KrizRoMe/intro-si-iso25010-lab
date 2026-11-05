@@ -4,67 +4,40 @@ import json
 import subprocess
 import sys
 
+import yaml
+
 REPO = 'KrizRoMe/intro-si-iso25010-lab'
 
 CUERPO = """### Nombre completo del estudiante
 
 Profesor KrizRoMe
 
-### Sistema auditado
-
-ElectroHogar
-
 ### Tipo de hallazgo - caracteristica ISO/IEC 25010
 
 Funcionalidad
 
-### Pagina donde se observa el problema
+### Pagina donde lo observaste
 
 Finalizar compra
 
-### Aspecto que falla - elige una sola opcion
+### Que problema encontraste
 
-Falta informacion, aviso o confirmacion para el usuario
-
-### Elemento que falla
-
-El campo de numero de tarjeta
-
-### Como se manifiesta el fallo
-
-Pongo 123 y el sitio confirma el pedido igual.
-
-### Como reproducirlo
-
-1. Entrar a Finalizar compra
-2. Llenar los datos
-3. Poner 123 en la tarjeta
-4. Confirmar
+Que falla: el campo de numero de tarjeta acepta 123 y confirma el pedido.
+A quien afecta: a todos los usuarios que compran.
+Como se reproduce: entro a Finalizar compra, lleno los datos, pongo 123 en la tarjeta y confirmo.
 
 ### Evidencia
 
 Aparece Pedido confirmado con la tarjeta 123.
 
-### Severidad
-
-Alta - impide o hace muy costoso completar la compra
-
-### Que usuario se ve afectado
-
-Solo usuarios que compran o pagan
-
 ### Solucion propuesta
 
 Validar el numero con Luhn antes de confirmar.
-
-### Conclusion tecnica
-
-El formulario acepta cualquier texto como tarjeta valida.
 """
 
 
-def gh(args, inp=None):
-    r = subprocess.run(['gh'] + args, capture_output=True, text=True, input=inp)
+def gh(args):
+    r = subprocess.run(['gh'] + args, capture_output=True, text=True)
     if r.returncode != 0:
         raise SystemExit('gh fallo: %s' % r.stderr.strip())
     return r.stdout.strip()
@@ -88,10 +61,8 @@ def main():
         print('  - %s' % h)
 
     print('\nVerificaciones:')
-    # El campo `upload` y los `checkboxes` solo existen en el FORM INTERACTIVO.
-    # Al crear el Issue por CLI no aparecen en el cuerpo (no hay archivo
-    # adjunto ni casillas marcadas), asi que se validan contra el YAML.
-    import yaml
+    # El campo `upload` solo existe en el FORM INTERACTIVO: al crear el Issue
+    # por CLI no aparece en el cuerpo, asi que se valida contra el YAML.
     with open('.github/ISSUE_TEMPLATE/hallazgo.yml', encoding='utf-8') as f:
         form = yaml.safe_load(f)
     tipos = [s.get('type') for s in form.get('body', [])]
@@ -102,21 +73,21 @@ def main():
          any('Tipo de hallazgo' in h for h in h3)),
         ('el valor "Funcionalidad" quedo registrado',
          '\nFuncionalidad\n' in body or body.rstrip().endswith('Funcionalidad')),
+        ('tiene el selector de pagina',
+         any('Pagina donde lo observaste' in h for h in h3)),
+        ('tiene el campo de problema',
+         any('Que problema encontraste' in h for h in h3)),
+        ('tiene campo de evidencia',
+         any('Evidencia' in h for h in h3)),
+        ('tiene el campo de solucion propuesta',
+         any('Solucion propuesta' in h for h in h3)),
+        ('el form tiene campo de carga de captura',
+         'upload' in tipos and 'captura' in ids_form),
         ('NO pide correo institucional',
          not any('correo' in h.lower() or 'email' in h.lower() for h in h3)
          and 'correo' not in ids_form and 'email' not in ids_form),
-        ('NO pide principio de usabilidad (se unifico en "Aspecto que falla")',
-         not any('Principio' in h for h in h3)),
-        ('tiene campo de evidencia',
-         any('Evidencia' in h for h in h3)),
-        ('el form tiene campo de carga de capturas',
-         'upload' in tipos and 'captura' in ids_form),
-        ('el form tiene las 3 casillas de verificacion',
-         'checkboxes' in tipos and 'verificacion' in ids_form),
-        ('tiene el selector de aspecto',
-         any('Aspecto que falla' in h for h in h3)),
-        ('tiene el selector de severidad',
-         any(h == 'Severidad' for h in h3)),
+        ('NO pide mas de 7 campos',
+         len(ids_form) == 7),
     ]
     ok = True
     for nombre, cond in checks:

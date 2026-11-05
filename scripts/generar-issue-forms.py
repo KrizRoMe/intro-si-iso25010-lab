@@ -6,6 +6,15 @@ Un SOLO formulario para todos los hallazgos: el alumno elige la
 caracteristica ISO/IEC 25010 (Rendimiento, Usabilidad, Compatibilidad,
 Funcionalidad) en un selector desplegable y audita UN SOLO problema.
 
+Solo 7 campos, los indispensables:
+  1. Nombre completo del estudiante
+  2. Tipo de hallazgo (selector)
+  3. Pagina donde lo observaste (selector)
+  4. Que problema encontraste (texto: que falla + a quien afecta + como se reproduce)
+  5. Evidencia
+  6. Captura de pantalla (adjunto, opcional)
+  7. Solucion propuesta
+
 Se escribe el YAML a mano (string) porque yaml.dump genera alias (*id001)
 que el renderer de GitHub rechaza con "Alias parsing was not enabled".
 """
@@ -25,11 +34,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Reporta UN SOLO problema de calidad del sitio ElectroHogar.
-
-        Sitio auditado: %(url)s
-
-        Cada problema se reporta en un Issue independiente. No mezcles hallazgos en un mismo reporte.
+        Reporta **UN SOLO** problema del sitio ElectroHogar: %(url)s
 
   - type: input
     id: estudiante
@@ -39,19 +44,11 @@ body:
     validations:
       required: true
 
-  - type: input
-    id: sistema_auditado
-    attributes:
-      label: Sistema auditado
-      value: ElectroHogar
-    validations:
-      required: true
-
   - type: dropdown
     id: tipo_hallazgo
     attributes:
       label: Tipo de hallazgo - caracteristica ISO/IEC 25010
-      description: Elige la caracteristica que mejor describa el problema que encontraste.
+      description: Elige la caracteristica que mejor describa el problema.
       options:
         - Rendimiento
         - Usabilidad
@@ -63,7 +60,7 @@ body:
   - type: dropdown
     id: pagina
     attributes:
-      label: Pagina donde se observa el problema
+      label: Pagina donde lo observaste
       options:
         - Inicio y catalogo
         - Detalle de producto
@@ -74,43 +71,15 @@ body:
     validations:
       required: true
 
-  - type: dropdown
-    id: aspecto
-    attributes:
-      label: Aspecto que falla - elige una sola opcion
-      description: Como se manifiesta el fallo en terminos generales. El detalle concreto lo describes mas abajo.
-      options:
-        - El resultado no corresponde a lo que el usuario pidio
-        - Falta informacion, aviso o confirmacion para el usuario
-        - El recurso o la carga es excesivo y ralentiza el sitio
-        - El elemento no se ve bien, no se entiende o no se puede usar
-    validations:
-      required: true
-
   - type: textarea
-    id: elemento
+    id: problema
     attributes:
-      label: Elemento que falla
-      description: Describe QUE elemento concreto falla, no la pagina entera.
-      placeholder: "Los 8 imagenes de producto del catalogo"
-    validations:
-      required: true
-
-  - type: textarea
-    id: fallo
-    attributes:
-      label: Como se manifiesta el fallo
-      description: Que le pasa al usuario. Usa tus propias palabras.
-      placeholder: "La pagina tarda mucho en mostrar los productos y el scroll se congela"
-    validations:
-      required: true
-
-  - type: textarea
-    id: reproduccion
-    attributes:
-      label: Como reproducirlo
-      description: Pasos numerados para que otro alumno lo vea igual.
-      placeholder: "1. Abrir Inicio  2. Esperar la carga  3. Desplazar la pagina"
+      label: Que problema encontraste
+      description: "Que falla, a quien le afecta y como se reproduce. Un solo problema por Issue."
+      placeholder: |
+        Que falla: el filtro de precio no me muestra los productos del rango que pido.
+        A quien afecta: a cualquiera que quiera comprar por precio.
+        Como se reproduce: en Inicio, pongo minimo 500 y maximo 2000, y me salen productos fuera del rango.
     validations:
       required: true
 
@@ -118,72 +87,27 @@ body:
     id: evidencia
     attributes:
       label: Evidencia
-      description: Que observaste o mediste que demuestra el problema. Escribe en tus propias palabras.
-      placeholder: "Las 8 imagenes pesan 2 MB cada una y se cargan todas al abrir la pagina"
+      description: "Que mediste u observaste que demuestra el problema."
+      placeholder: "Ninguno de los 6 productos que me aparece esta dentro del rango 500-2000."
     validations:
       required: true
 
   - type: upload
     id: captura
     attributes:
-      label: Capturas de pantalla
-      description: Adjunta la imagen que demuestra el problema. PNG o JPG hasta 10 MB.
+      label: Captura de pantalla
+      description: "Adjunta la imagen que demuestra el problema. PNG o JPG hasta 10 MB."
     validations:
       required: false
-
-  - type: dropdown
-    id: severidad
-    attributes:
-      label: Severidad
-      options:
-        - Baja - molesto pero el usuario puede seguir trabajando
-        - Media - dificulta la tarea y obliga a corregir el paso
-        - Alta - impide o hace muy costoso completar la compra
-    validations:
-      required: true
-
-  - type: dropdown
-    id: usuario_afectado
-    attributes:
-      label: Que usuario se ve afectado
-      options:
-        - Todos los usuarios
-        - Usuarios con conexion lenta o con equipos antiguos
-        - Usuarios en dispositivos moviles
-        - Usuarios que usan tecnologias de asistencia
-        - Solo usuarios que compran o pagan
-    validations:
-      required: true
 
   - type: textarea
     id: solucion
     attributes:
       label: Solucion propuesta
-      description: Un cambio concreto y verificable que resolveria el problema.
-      placeholder: "Comprimir las imagenes a WebP y agregar loading lazy a cada imagen"
+      description: "Un cambio concreto que resolveria el problema."
+      placeholder: "Invertir la comparacion del filtro para que muestre los productos dentro del rango."
     validations:
       required: true
-
-  - type: textarea
-    id: conclusion
-    attributes:
-      label: Conclusion tecnica
-      description: Veredicto final en una o dos lineas.
-      placeholder: "El sitio entrega 15 MB de imagenes sin comprimir antes de mostrar el catalogo"
-    validations:
-      required: true
-
-  - type: checkboxes
-    id: verificacion
-    attributes:
-      label: Verificacion antes de enviar
-      options:
-        - label: Abri el sitio y confirme que el problema sigue presente
-          required: true
-        - label: Documento un solo problema en este Issue
-          required: true
-        - label: Adjunte la evidencia que lo demuestra
-          required: false
 ''' % {'url': URL_LAB}
 
 
@@ -193,7 +117,7 @@ def main():
         f.write(FORMULARIO)
     print('escrito: hallazgo.yml (%d bytes)' % len(FORMULARIO))
 
-    # Limpia formularios antigos que ya no aplican
+    # Limpia formularios antiguos que ya no aplican
     for viejo in ('hallazgo-rendimiento.yml', 'hallazgo-usabilidad.yml',
                   'hallazgo-compatibilidad.yml', 'hallazgo-funcionalidad.yml'):
         ruta_vieja = os.path.join(DESTINO, viejo)

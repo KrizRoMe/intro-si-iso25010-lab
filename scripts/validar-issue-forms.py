@@ -24,7 +24,13 @@ import yaml
 RAIZ = os.path.dirname(os.path.abspath(__file__))
 PATRON = os.path.join(RAIZ, '..', '.github', 'ISSUE_TEMPLATE', '*.yml')
 FORM_ESPERADO = 'hallazgo.yml'
-TIPOS_ESPERADOS = {'markdown', 'input', 'dropdown', 'textarea', 'upload', 'checkboxes'}
+# Solo los campos indispensables: 7 en total.
+IDS_ESPERADOS = ['estudiante', 'tipo_hallazgo', 'pagina', 'problema',
+                  'evidencia', 'captura', 'solucion']
+# Campos que NO deben existir (redundantes o que piden de mas).
+IDS_PROHIBIDOS = ['correo', 'email', 'sistema_auditado', 'severidad',
+                  'aspecto', 'elemento', 'fallo', 'reproduccion',
+                  'usuario_afectado', 'conclusion', 'verificacion']
 
 
 def main():
@@ -137,6 +143,20 @@ def main():
         if 'estudiante' not in ids:
             errores.append('%s: falta el campo de nombre del estudiante' % nombre)
 
+        # --- solo los campos indispensables ---
+        if len(ids) != len(IDS_ESPERADOS):
+            errores.append('%s: tiene %d campos, se esperan %d (%s)'
+                           % (nombre, len(ids), len(IDS_ESPERADOS), ', '.join(IDS_ESPERADOS)))
+        faltantes = [i for i in IDS_ESPERADOS if i not in ids]
+        if faltantes:
+            errores.append('%s: faltan campos: %s' % (nombre, ', '.join(faltantes)))
+        sobrantes = [i for i in ids if i not in IDS_ESPERADOS]
+        if sobrantes:
+            errores.append('%s: campos sobrantes (de mas): %s' % (nombre, ', '.join(sobrantes)))
+        for p in IDS_PROHIBIDOS:
+            if p in ids:
+                errores.append('%s: el campo "%s" no debe estar (pide de mas)' % (nombre, p))
+
         # el selector de tipo debe ofrecer las 4 caracteristicas ISO 25010
         sel = None
         for s in t.get('body', []):
@@ -144,10 +164,10 @@ def main():
                 sel = s
         if sel:
             ops = sel.get('attributes', {}).get('options', [])
-            faltantes = [c for c in ('Rendimiento', 'Usabilidad', 'Compatibilidad', 'Funcionalidad')
-                         if c not in ops]
-            if faltantes:
-                errores.append('%s: al selector tipo_hallazgo le faltan: %s' % (nombre, ', '.join(faltantes)))
+            faltantes_c = [c for c in ('Rendimiento', 'Usabilidad', 'Compatibilidad', 'Funcionalidad')
+                           if c not in ops]
+            if faltantes_c:
+                errores.append('%s: al selector tipo_hallazgo le faltan: %s' % (nombre, ', '.join(faltantes_c)))
         print('  OK  %-38s campos=%d  ids=%d' % (nombre, total_campos, len(ids)))
 
     print('\n' + '=' * 70)

@@ -67,37 +67,32 @@ así que no hay que elegir entre varias opciones.
 
 ## 5. Qué pide el formulario
 
-Son 16 campos, siempre en el mismo orden:
+Son **7 campos**, siempre en el mismo orden:
 
-### Identificación
+### Identificación y clasificación
 - **Nombre completo** — tal como figura en el curso
-- **Sistema auditado** — ya viene con `ElectroHogar`
-
-### Clasificación (aquí eliges el tipo de hallazgo)
 - **Tipo de hallazgo — característica ISO/IEC 25010** ← **este es el selector**
   - Rendimiento
   - Usabilidad
   - Compatibilidad
   - Funcionalidad
-- **Página donde se observa el problema** (selector)
-- **Aspecto que falla** (selector con el mecanismo general del fallo)
+- **Página donde lo observaste** (selector)
 
 ### El hallazgo
-- **Elemento que falla** — el elemento concreto, no "toda la página"
-- **Cómo se manifiesta el fallo** — qué le pasa al usuario, con tus propias palabras
-- **Cómo reproducirlo** — pasos numerados, para que otro alumno lo vea igual
+- **Qué problema encontraste** — un solo campo de texto con tres partes:
+  - *Qué falla* — el elemento concreto y el error
+  - *A quién afecta* — qué usuarios lo sufren
+  - *Cómo se reproduce* — los pasos
+
+  El formulario te sugiere ese formato en el ejemplo, pero puedes escribirlo
+  como te salga: el docente busca el contenido, no las etiquetas.
 
 ### Evidencia
 - **Evidencia** — qué mediste u observaste
-- **Capturas de pantalla** — adjunta la imagen que lo demuestra
+- **Captura de pantalla** — adjunta la imagen que lo demuestra
 
-### Evaluación y solución
-- **Severidad** (selector) y **Usuario afectado** (selector)
+### Solución
 - **Solución propuesta** — un cambio concreto y verificable
-- **Conclusión técnica** — veredicto final en una o dos líneas
-
-### Cierre
-- Tres casillas de verificación antes de enviar.
 
 ---
 
@@ -105,23 +100,14 @@ Son 16 campos, siempre en el mismo orden:
 
 > **Tipo de hallazgo:** Funcionalidad
 >
-> **Elemento que falla:** El campo de número de tarjeta en la página Finalizar compra.
+> **Qué problema encontraste:**
+> *Qué falla:* el campo de número de tarjeta acepta 123 y el sitio confirma el pedido igual, como si el dato fuera válido.
+> *A quién afecta:* a todos los usuarios que compran y pagan con tarjeta.
+> *Cómo se reproduce:* entro a "Finalizar compra", lleno mis datos, elijo "Tarjeta de crédito o débito", escribo `123` en el número de tarjeta y `1` en el CVV, y presiono "Confirmar pedido".
 >
-> **Cómo se manifiesta el fallo:** Pongo 123 en el número de tarjeta y el sitio me confirma el pedido igual, como si el dato fuera válido. El usuario cree que todo está en orden y se lleva un cargo sin tarjeta real.
+> **Evidencia:** Aparece el mensaje "Pedido confirmado. Número de pedido EH-2026-004312" con la tarjeta 123. El formulario no marca ningún campo en rojo ni avisa que el dato es inválido.
 >
-> **Cómo reproducirlo:**
-> 1. Entrar a "Finalizar compra".
-> 2. Llenar nombre, dirección, ciudad y tipo de envío.
-> 3. Elegir "Tarjeta de crédito o débito" como método de pago.
-> 4. Escribir `123` en el número de tarjeta y `1` en el CVV.
-> 5. Presionar "Confirmar pedido".
-> 6. Aparece "Pedido confirmado. Número de pedido EH-2026-004312".
->
-> **Evidencia:** Adjunto la captura del pedido confirmado con la tarjeta 123. El formulario no marca ningún campo en rojo ni avisa que el dato es inválido.
->
-> **Solución propuesta:** Validar el número de tarjeta con una expresión regular (16 dígitos, pasar Luhn) antes de confirmar, y mostrar el error junto al campo, no solo arriba del formulario.
->
-> **Conclusión técnica:** El formulario no valida los datos de pago y acepta cualquier texto como número de tarjeta válido.
+> **Solución propuesta:** Validar el número de tarjeta con una expresión regular (16 dígitos, pasar el algoritmo de Luhn) antes de confirmar, y mostrar el error junto al campo, no solo arriba del formulario.
 
 ---
 

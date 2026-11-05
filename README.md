@@ -91,23 +91,23 @@ ISO/IEC 25010) y documenta **UN SOLO problema** por Issue.
 
 ### Estructura del reporte
 
-El formulario pide 16 campos, siempre en el mismo orden:
+El formulario pide **7 campos**, siempre en el mismo orden:
 
 1. **Nombre completo** — tu identidad
-2. **Sistema auditado** — ya viene con `ElectroHogar`
-3. **Tipo de hallazgo** — selector: Rendimiento / Usabilidad / Compatibilidad / Funcionalidad
-4. **Página** donde se observa el problema (selector)
-5. **Aspecto que falla** — selector con el mecanismo general del fallo
-6. **Elemento que falla** — el elemento concreto, no la página entera
-7. **Cómo se manifiesta el fallo** — con tus propias palabras
-8. **Cómo reproducirlo** — pasos numerados
-9. **Evidencia** — qué mediste u observaste
-10. **Capturas de pantalla** — adjunto de la evidencia
-11. **Severidad** (selector) y **Usuario afectado** (selector)
-12. **Solución propuesta** y **conclusión técnica**
-13. **Verificación** — tres casillas de cierre
+2. **Tipo de hallazgo** — selector: Rendimiento / Usabilidad / Compatibilidad / Funcionalidad
+3. **Página** donde lo observaste (selector)
+4. **Qué problema encontraste** — un solo texto con tres partes:
+   *qué falla* · *a quién afecta* · *cómo se reproduce*
+5. **Evidencia** — qué mediste u observaste
+6. **Captura de pantalla** — adjunto de la evidencia
+7. **Solución propuesta** — un cambio concreto y verificable
 
 La primera línea del Issue (el título) lleva el prefijo `[Hallazgo]`.
+
+> El campo 4 concentra tres datos para que el alumno no tenga que escribir
+> tres veces lo mismo. El placeholder te sugiere el formato
+> (*Qué falla: … / A quién afecta: … / Cómo se reproduce: …*), pero puedes
+> escribirlo como te salga: el docente busca el contenido, no la etiqueta.
 
 ---
 
@@ -189,9 +189,9 @@ python3 scripts/validar-issue-forms.py
 ```
 
 ```
-Validating 1 Issue Form
+Validando 1 Issue Form
 
-  OK  hallazgo.yml                           campos=16  ids=15
+  OK  hallazgo.yml                           campos=8  ids=7
 
 OK: el formulario unico pasa la validacion de esquema de GitHub
 ```
@@ -205,27 +205,23 @@ python3 scripts/probar-issue-form-unico.py
 ```
 
 ```
-Campos renderizados por GitHub (13):
+Campos renderizados por GitHub (6):
   - Nombre completo del estudiante
-  - Sistema auditado
   - Tipo de hallazgo - caracteristica ISO/IEC 25010
-  - Pagina donde se observa el problema
-  - Aspecto que falla - elige una sola opcion
-  - Elemento que falla
-  - Como se manifiesta el fallo
-  - Como reproducirlo
+  - Pagina donde lo observaste
+  - Que problema encontraste
   - Evidencia
-  - Severidad
-  - Que usuario se ve afectado
   - Solucion propuesta
-  - Conclusion tecnica
 
   OK   el selector "Tipo de hallazgo" esta presente
   OK   el valor "Funcionalidad" quedo registrado
-  OK   NO pide correo institucional
+  OK   tiene el selector de pagina
+  OK   tiene el campo de problema
   OK   tiene campo de evidencia
-  OK   el form tiene campo de carga de capturas
-  OK   el form tiene las 3 casillas de verificacion
+  OK   tiene el campo de solucion propuesta
+  OK   el form tiene campo de carga de captura
+  OK   NO pide correo institucional
+  OK   NO pide mas de 7 campos
 RESULTADO: el Issue Form unico funciona
 ```
 
