@@ -120,7 +120,7 @@ RENDIMIENTO = encabezado(
       label: Que falla exactamente (elige una sola)
       options:
         - Tiempo de respuesta o carga lenta de la pagina
-        - Recursos pesados: imagenes, scripts o fuentes sin optimizar
+        - "Recursos pesados - imagenes, scripts o fuentes sin optimizar"
         - Trabajo de CPU que bloquea la interaccion
         - Peticiones excesivas al servidor
         - Ninguna de las anteriores (describir en el detalle)
