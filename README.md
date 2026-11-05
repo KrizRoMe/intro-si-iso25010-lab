@@ -180,16 +180,53 @@ TOTAL: 14 checks | PASS: 14 | FAIL: 0
 
 ### Issue Forms
 
+Hay **un solo** formulario (`hallazgo.yml`). El validador comprueba que no
+haya más de uno, que no pida correo, y que el selector de tipo ofrezca las
+4 características:
+
 ```bash
 python3 scripts/validar-issue-forms.py
 ```
 
 ```
-OK  hallazgo-compatibilidad.yml    campos=16  ids=15
-OK  hallazgo-funcionalidad.yml     campos=16  ids=15
-OK  hallazgo-rendimiento.yml       campos=16  ids=15
-OK  hallazgo-usabilidad.yml        campos=16  ids=15
-OK: los 4 formularios pasan la validacion de esquema de GitHub
+Validating 1 Issue Form
+
+  OK  hallazgo.yml                           campos=16  ids=15
+
+OK: el formulario unico pasa la validacion de esquema de GitHub
+```
+
+### Prueba real del formulario
+
+Crea un Issue de verdad, lee su cuerpo renderizado y lo borra:
+
+```bash
+python3 scripts/probar-issue-form-unico.py
+```
+
+```
+Campos renderizados por GitHub (13):
+  - Nombre completo del estudiante
+  - Sistema auditado
+  - Tipo de hallazgo - caracteristica ISO/IEC 25010
+  - Pagina donde se observa el problema
+  - Aspecto que falla - elige una sola opcion
+  - Elemento que falla
+  - Como se manifiesta el fallo
+  - Como reproducirlo
+  - Evidencia
+  - Severidad
+  - Que usuario se ve afectado
+  - Solucion propuesta
+  - Conclusion tecnica
+
+  OK   el selector "Tipo de hallazgo" esta presente
+  OK   el valor "Funcionalidad" quedo registrado
+  OK   NO pide correo institucional
+  OK   tiene campo de evidencia
+  OK   el form tiene campo de carga de capturas
+  OK   el form tiene las 3 casillas de verificacion
+RESULTADO: el Issue Form unico funciona
 ```
 
 Las capturas de evidencia quedan en `scripts/capturas/`.

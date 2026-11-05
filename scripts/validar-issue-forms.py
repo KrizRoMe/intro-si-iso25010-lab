@@ -156,7 +156,7 @@ def main():
         for e in errores:
             print('  - %s' % e)
         return 1
-    print('OK: los %d formularios pasan la validacion de esquema de GitHub' % len(rutas))
+    print('OK: el formulario unico pasa la validacion de esquema de GitHub')
     return 0
 
 

@@ -50,28 +50,40 @@ for ruta in ['', 'index.html', 'producto.html?id=3', 'carrito.html', 'checkout.h
     code, _ = http(SITIO + ruta)
     chk('ruta %s' % (ruta or '/'), code == 200, 'HTTP %s' % code)
 
-print('\n[3] ISSUE FORMS')
-templates = gh(['api', 'repos/%s/contents/.github/ISSUE_TEMPLATE' % PUB])
-nombres = ['hallazgo-rendimiento.yml', 'hallazgo-usabilidad.yml',
-           'hallazgo-compatibilidad.yml', 'hallazgo-funcionalidad.yml']
-for n in nombres:
-    chk('form %s' % n, n in templates, 'presente en .github/ISSUE_TEMPLATE')
-chk('config.yml (fuerza el form)', 'config.yml' in templates, 'blank_issues_enabled: false')
+print('\n[3] ISSUE FORMS (debe existir SOLO uno)')
+templates = gh(['api', 'repos/%s/contents/.github/ISSUE_TEMPLATE' % PUB, '--jq', '.[].name'])
+nombres = [t for t in templates.split() if t.endswith('.yml')]
+forms = [t for t in nombres if t != 'config.yml']
+chk('exactamente 1 formulario', len(forms) == 1, 'formularios: %s' % (forms or 'ninguno'))
+chk('se llama hallazgo.yml', 'hallazgo.yml' in forms, str(forms))
+chk('config.yml presente', 'config.yml' in nombres, str(nombres))
 
-print('\n[4] ETIQUETAS (las que aplican los forms)')
-labels = gh(['label', 'list', '--repo', PUB, '--limit', '30'])
-for l in ['hallazgo', 'rendimiento', 'usabilidad', 'compatibilidad', 'funcionalidad']:
-    chk('etiqueta %s' % l, ('\n%s\t' % l) in labels or l in labels, 'existe')
+print('\n[4] CONFIG.YML (sin enlace de reportes de companeros)')
+cfg = gh(['api', 'repos/%s/contents/.github/ISSUE_TEMPLATE/config.yml' % PUB, '--jq', '.content'])
+import base64
+cfg_txt = base64.b64decode(cfg).decode('utf-8') if cfg else ''
+chk('fuerza el formulario (blank_issues_enabled: false)',
+    'blank_issues_enabled: false' in cfg_txt, 'ok')
+chk('NO tiene enlace a issues de companeros',
+    '/issues?q=' not in cfg_txt and 'companeros' not in cfg_txt.lower(), 'sin contact_link a issues')
+chk('SI tiene el enlace al sitio del lab',
+    'krizrome.github.io/intro-si-iso25010-lab' in cfg_txt, 'contact_link al sitio')
 
-print('\n[5] SEPARACION PUBLICO / PRIVADO')
+print('\n[5] ETIQUETAS')
+labels = gh(['label', 'list', '--repo', PUB, '--limit', '30', '--json', 'name', '--jq', '.[].name'])
+chk('etiqueta hallazgo existe', 'hallazgo' in labels, 'quedan: %s' % ' '.join(labels.split()))
+obsoletas = [l for l in ['rendimiento', 'usabilidad', 'compatibilidad', 'funcionalidad'] if l in labels]
+chk('etiquetas por caracteristica eliminadas', not obsoletas, str(obsoletas))
+
+print('\n[6] SEPARACION PUBLICO / PRIVADO')
 pub_files = gh(['api', 'repos/%s/contents/' % PUB, '--jq', '.[].name'])
 fuga = [w for w in ['docente', 'RUBRICA', 'RESPUESTAS', 'PROMPT'] if w in pub_files]
-chk('sin material docente en el publico', not fuga, 'contenido publico: %s' % ' '.join(pub_files.split()))
+chk('sin material docente en el publico', not fuga, ' '.join(pub_files.split()))
 priv_files = gh(['api', 'repos/%s/contents/' % PRIV, '--jq', '.[].name'])
 for f in ['RESPUESTAS_ESPERADAS.md', 'RUBRICA.md', 'PROMPT_CORRECCION_IA.md', 'calificar.py']:
     chk('docente/%s' % f, f in priv_files, 'presente en el repo privado')
 
-print('\n[6] PAGES')
+print('\n[7] PAGES')
 p = json.loads(gh(['api', 'repos/%s/pages' % PUB]))
 chk('pages url', p['html_url'].rstrip('/') == SITIO.rstrip('/'), p['html_url'])
 chk('pages source = main', p['source']['branch'] == 'main', str(p['source']))
