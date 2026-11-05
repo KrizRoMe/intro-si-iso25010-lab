@@ -154,18 +154,23 @@ No hace falta instalar nada: todo se hace en el navegador.
 
 ## ✅ Verificación del laboratorio
 
+### Defectos del sitio
+
 El script `scripts/verificar-defectos.py` abre el sitio en un navegador real
 (Chromium) y comprueba los 14 defectos con evidencia medida:
 
 ```bash
 python3 -m http.server 8765 &
 python3 scripts/verificar-defectos.py
+
+# o contra el sitio ya publicado:
+LAB_BASE="https://krizrome.github.io/intro-si-iso25010-lab" python3 scripts/verificar-defectos.py
 ```
 
 ```
 R01    Rendimiento: imagenes sin lazy-loading          PASS  | imagenes=8 | con loading=lazy: 0 | ancho real px: 2600
 R02    Rendimiento: script de terceros bloquea         PASS  | scripts sin defer/async: js/app-legacy.js
-R03    Rendimiento: tarea de CPU sincrona              PASS  | bloqueo=30 ms | hashes=6000
+R03    Rendimiento: tarea de CPU sincrona              PASS  | bloqueo=27 ms | hashes=6000
 U01    Usabilidad: filtro de precio invertido           PASS  | ninguno de los mostrados cae en el rango
 U02    Usabilidad: busqueda sin aviso de vacio         PASS  | visibles=0 | mensaje ausente
 U03    Usabilidad: contrasena en texto plano           PASS  | input[type]=text
@@ -176,6 +181,20 @@ F01    Funcionalidad: boton sin etiqueta accesible      PASS  | texto='×' aria-
 F02    Funcionalidad: acepta tarjeta invalida           PASS  | tarjeta "123" -> pedido confirmado
 F03    Funcionalidad: total no refleja la cantidad      PASS  | 2 unidades -> total sigue en S/ 149.00
 TOTAL: 14 checks | PASS: 14 | FAIL: 0
+```
+
+### Issue Forms
+
+```bash
+python3 scripts/validar-issue-forms.py
+```
+
+```
+OK  hallazgo-compatibilidad.yml    campos=16  ids=15
+OK  hallazgo-funcionalidad.yml     campos=16  ids=15
+OK  hallazgo-rendimiento.yml       campos=16  ids=15
+OK  hallazgo-usabilidad.yml        campos=16  ids=15
+OK: los 4 formularios pasan la validacion de esquema de GitHub
 ```
 
 Las capturas de evidencia quedan en `scripts/capturas/`.
