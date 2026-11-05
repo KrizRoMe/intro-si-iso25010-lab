@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Finalizar compra | ElectroHogar</title>
+<link rel="stylesheet" href="css/estilos.css">
+<script src="js/app-legacy.js"></script>
+<script src="js/analitica-pesada.js"></script>
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="contenedor cabecera-inner">
+    <a class="marca" href="index.html">
+      <span class="marca-icono">EH</span>
+      <span>ElectroHogar</span>
+    </a>
+    <nav class="nav-principal">
+      <a href="index.html">Inicio</a>
+      <a href="index.html#catalogo">Catálogo</a>
+      <a href="index.html#catalogo">Ofertas</a>
+      <a href="index.html#catalogo">Novedades</a>
+      <a href="cuenta.html">Mi cuenta</a>
+    </nav>
+    <div class="carro-caja">
+      <a class="carrito-enlace" href="carrito.html">
+        <span>Carrito</span>
+        <span class="carrito-contador" id="contador-carrito">0</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="contenedor">
+  <nav class="migas">
+    <a href="index.html">Inicio</a> &rsaquo; <a href="carrito.html">Carrito</a> &rsaquo; <span>Finalizar compra</span>
+  </nav>
+
+  <h1 style="font-size:28px;margin:6px 0 20px;">Finalizar compra</h1>
+
+  <div class="columnas">
+    <div class="form-panel" id="form-panel">
+      <div class="aviso aviso-error" id="aviso-form" style="display:none;"></div>
+      <div class="aviso aviso-ok" id="aviso-ok" style="display:none;"></div>
+
+      <form id="form-pago" novalidate>
+
+        <fieldset>
+          <legend>Datos del comprador</legend>
+
+          <div class="campo">
+            <label for="nombre">Nombre completo</label>
+            <input type="text" id="nombre" name="nombre" required>
+          </div>
+
+          <div class="campo">
+            <label for="email">Correo electrónico</label>
+            <input type="text" id="email" name="email" required>
+          </div>
+
+          <div class="dos-columnas">
+            <div class="campo">
+              <label for="telefono">Teléfono</label>
+              <input type="text" id="telefono" name="telefono">
+            </div>
+            <div class="campo">
+              <label for="documento">DNI / CE</label>
+              <input type="text" id="documento" name="documento">
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Método de pago</legend>
+
+          <div class="campo">
+            <label for="metodo-pago">Selecciona el método de pago</label>
+            <select id="metodo-pago" name="metodo-pago" required>
+              <option value="">Seleccione...</option>
+              <option value="tarjeta">Tarjeta de crédito o débito</option>
+              <option value="transferencia">Transferencia bancaria</option>
+              <option value="yape">Yape / Plin</option>
+              <option value="efectivo">Pago en efectivo al recoger</option>
+            </select>
+          </div>
+
+          <div class="dos-columnas">
+            <div class="campo">
+              <label for="numero-tarjeta">Número de tarjeta</label>
+              <input type="text" id="numero-tarjeta" name="numero-tarjeta">
+            </div>
+            <div class="campo">
+              <label for="titular-tarjeta">Titular de la tarjeta</label>
+              <input type="text" id="titular-tarjeta" name="titular-tarjeta">
+            </div>
+          </div>
+
+          <div class="dos-columnas">
+            <div class="campo">
+              <label for="fecha-vencimiento">Fecha de vencimiento</label>
+              <input type="text" id="fecha-vencimiento" name="fecha-vencimiento">
+            </div>
+            <div class="campo">
+              <label for="cvv">CVV</label>
+              <input type="text" id="cvv" name="cvv">
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Entrega</legend>
+
+          <div class="campo">
+            <label for="direccion">Dirección de entrega</label>
+            <input type="text" id="direccion" name="direccion" required>
+          </div>
+
+          <div class="dos-columnas">
+            <div class="campo">
+              <label for="ciudad">Ciudad</label>
+              <select id="ciudad" name="ciudad" required>
+                <option value="">Seleccione...</option>
+                <option value="lima">Lima</option>
+                <option value="arequipa">Arequipa</option>
+                <option value="trujillo">Trujillo</option>
+                <option value="cusco">Cusco</option>
+                <option value="piura">Piura</option>
+              </select>
+            </div>
+            <div class="campo">
+              <label for="envio">Tipo de envío</label>
+              <select id="envio" name="envio" required>
+                <option value="">Seleccione...</option>
+                <option value="estandar">Estándar (3 a 7 días)</option>
+                <option value="express">Express (1 a 2 días)</option>
+                <option value="recojo">Recojo en tienda</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="campo">
+            <label for="referencia">Referencia / número de puerta</label>
+            <input type="text" id="referencia" name="referencia">
+          </div>
+        </fieldset>
+
+        <button type="submit" class="btn btn-primario btn-bloque">Confirmar pedido</button>
+        <p class="ayuda" style="margin:12px 0 0;text-align:center;">Al confirmar aceptas los términos y la política de privacidad de ElectroHogar.</p>
+      </form>
+    </div>
+
+    <div class="resumen">
+      <h2 style="margin:0 0 14px;font-size:19px;">Tu pedido</h2>
+      <div class="resumen-linea"><span>Artículos</span><span id="num-articulos">0</span></div>
+      <div class="resumen-linea"><span>Subtotal</span><span id="subtotal">S/ 0.00</span></div>
+      <div class="resumen-linea"><span>Envío</span><span id="costo-envio">S/ 15.00</span></div>
+      <div class="resumen-linea total"><span>Total</span><span id="total-general">S/ 0.00</span></div>
+      <a class="btn btn-secundario btn-bloque" href="carrito.html" style="margin-top:16px;">Modificar carrito</a>
+    </div>
+  </div>
+</main>
+
+<footer class="pie">
+  <div class="contenedor">
+    <div class="pie-copy">© 2026 ElectroHogar S.A.C. · Todos los derechos reservados · RUC 20512345678</div>
+  </div>
+</footer>
+
+<div class="banner-cookies" id="banner-cookies">
+  <div class="contenedor banner-inner">
+    <p>Usamos cookies para mejorar tu experiencia de compra, mostrarte ofertas personalizadas y medir el rendimiento del sitio. Puedes aceptarlas o rechazarlas.</p>
+    <div class="banner-acciones">
+      <button class="btn btn-secundario" id="btn-cookies-no">Rechazar</button>
+      <button class="btn btn-primario" id="btn-cookies-si">Aceptar</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/datos.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Producto | ElectroHogar</title>
+<link rel="stylesheet" href="css/estilos.css">
+<script src="js/app-legacy.js"></script>
+<script src="js/analitica-pesada.js"></script>
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="contenedor cabecera-inner">
+    <a class="marca" href="index.html">
+      <span class="marca-icono">EH</span>
+      <span>ElectroHogar</span>
+    </a>
+    <nav class="nav-principal">
+      <a href="index.html">Inicio</a>
+      <a href="index.html#catalogo">Catálogo</a>
+      <a href="index.html#catalogo">Ofertas</a>
+      <a href="index.html#catalogo">Novedades</a>
+      <a href="cuenta.html">Mi cuenta</a>
+    </nav>
+    <div class="carro-caja">
+      <a class="carrito-enlace" href="carrito.html">
+        <span>Carrito</span>
+        <span class="carrito-contador" id="contador-carrito">0</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="contenedor">
+  <nav class="migas">
+    <a href="index.html">Inicio</a> &rsaquo; <a href="index.html#catalogo">Catálogo</a> &rsaquo; <span>Detalle del producto</span>
+  </nav>
+
+  <section class="detalle" id="detalle"></section>
+
+  <section class="barra-filtros" style="margin-top:10px;">
+    <a class="btn btn-secundario" href="index.html#catalogo">Volver al catálogo</a>
+    <a class="btn btn-primario" href="checkout.html">Ir a pagar</a>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="contenedor">
+    <div class="pie-copy">© 2026 ElectroHogar S.A.C. · Todos los derechos reservados · RUC 20512345678</div>
+  </div>
+</footer>
+
+<div class="banner-cookies" id="banner-cookies">
+  <div class="contenedor banner-inner">
+    <p>Usamos cookies para mejorar tu experiencia de compra, mostrarte ofertas personalizadas y medir el rendimiento del sitio. Puedes aceptarlas o rechazarlas.</p>
+    <div class="banner-acciones">
+      <button class="btn btn-secundario" id="btn-cookies-no">Rechazar</button>
+      <button class="btn btn-primario" id="btn-cookies-si">Aceptar</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/datos.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

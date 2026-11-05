@@ -1,0 +1,160 @@
+name: Hallazgo de Compatibilidad (front-stage)
+description: Reporta UN problema de compatibilidad del sitio en el navegador o el dispositivo.
+title: "[Compatibilidad] "
+labels: ["hallazgo", "compatibilidad"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Reporta UN SOLO problema de compatibilidad.
+
+        El sitio auditado es: https://krizrome.github.io/intro-si-iso25010-lab/
+
+        Requisitos: el problema debe ser visible por el usuario final (front-stage).
+        Cada hallazgo se reporta en un Issue independiente.
+
+  - type: input
+    id: estudiante
+    attributes:
+      label: Nombre completo del estudiante
+      placeholder: Juan Perez Rojas
+    validations:
+      required: true
+
+  - type: input
+    id: correo
+    attributes:
+      label: Correo institucional
+      placeholder: juan.perez@educa.edu.pe
+    validations:
+      required: true
+
+  - type: input
+    id: sistema_auditado
+    attributes:
+      label: Sistema auditado
+      value: ElectroHogar
+    validations:
+      required: true
+  - type: dropdown
+    id: pagina
+    attributes:
+      label: Pagina donde se observa el problema
+      options:
+        - Inicio y catalogo
+        - Detalle de producto
+        - Carrito
+        - Finalizar compra
+        - Mi cuenta
+        - Todas las paginas
+    validations:
+      required: true
+
+  - type: dropdown
+    id: subcaracteristica
+    attributes:
+      label: Que falla exactamente (elige una sola)
+      options:
+        - El contenido no se ve bien en pantallas pequenas
+        - El texto tiene poco contraste y no se lee
+        - El sitio depende de una tipografia que no siempre esta disponible
+        - Falta soporte para technologies del navegador
+        - Ninguna de las anteriores (describir en el detalle)
+    validations:
+      required: true
+
+  - type: textarea
+    id: elemento
+    attributes:
+      label: Elemento que falla
+      description: Describe QUE elemento concreto falla, no la pagina entera.
+      placeholder: "El precio tachado y la marca de cada producto"
+    validations:
+      required: true
+
+  - type: textarea
+    id: fallo
+    attributes:
+      label: Como se manifiesta el fallo
+      description: Que le pasa al usuario. Usa tus propias palabras.
+      placeholder: "Abro el sitio en el celular y tengo que mover la pantalla de lado para ver el precio"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduccion
+    attributes:
+      label: Como reproducirlo
+      description: Pasos numerados y, si aplica, el navegador y el tamano de pantalla.
+      placeholder: "1. Reducir la ventana del navegador a 390 px de ancho  2. Ver la barra lateral"
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidencia
+    attributes:
+      label: Evidencia
+      description: Que observaste o mediste que demuestra el problema. Escribe en tus propias palabras.
+      placeholder: "Al escribir una sola letra en el buscador, la pagina se queda pegada medio segundo"
+    validations:
+      required: true
+
+  - type: upload
+    id: captura
+    attributes:
+      label: Capturas de pantalla
+      description: Adjunta la imagen que demuestra el problema. PNG o JPG hasta 10 MB.
+    validations:
+      required: false
+  - type: dropdown
+    id: severidad
+    attributes:
+      label: Severidad
+      options:
+        - Baja - molesto pero el usuario puede seguir trabajando
+        - Media - dificulta la lectura o la navegacion
+        - Alta - impide o hace muy costoso completar la compra
+    validations:
+      required: true
+
+  - type: dropdown
+    id: entorno
+    attributes:
+      label: Entorno donde lo observaste
+      options:
+        - Computadora de escritorio
+        - Celular o tablet
+        - Navegador con tamano de ventana reducido
+        - Varios dispositivos a la vez
+    validations:
+      required: true
+
+  - type: textarea
+    id: solucion
+    attributes:
+      label: Solucion propuesta
+      description: Un cambio concreto y verificable que resolveria el problema.
+      placeholder: "Usar consultas de medios y un color de texto con contraste 4.5:1 o mas"
+    validations:
+      required: true
+
+  - type: textarea
+    id: conclusion
+    attributes:
+      label: Conclusion tecnica
+      description: Veredicto final en una o dos lineas.
+      placeholder: "El cuerpo tiene un ancho minimo fijo de 1200 px, por eso en movil hay desplazamiento horizontal"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: verificacion
+    attributes:
+      label: Verificacion antes de enviar
+      options:
+        - label: Abri el sitio y confirme que el problema sigue presente
+          required: true
+        - label: Documento un solo problema en este Issue
+          required: true
+        - label: Adjunte la evidencia que lo demuestra
+          required: false

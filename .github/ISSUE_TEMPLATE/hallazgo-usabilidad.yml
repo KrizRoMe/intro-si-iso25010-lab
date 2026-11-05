@@ -1,0 +1,165 @@
+name: Hallazgo de Usabilidad (front-stage)
+description: Reporta UN problema de usabilidad que dificulta usar ElectroHogar.
+title: "[Usabilidad] "
+labels: ["hallazgo", "usabilidad"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Reporta UN SOLO problema de usabilidad.
+
+        El sitio auditado es: https://krizrome.github.io/intro-si-iso25010-lab/
+
+        Requisitos: el problema debe ser visible por el usuario final (front-stage).
+        Cada hallazgo se reporta en un Issue independiente.
+
+  - type: input
+    id: estudiante
+    attributes:
+      label: Nombre completo del estudiante
+      placeholder: Juan Perez Rojas
+    validations:
+      required: true
+
+  - type: input
+    id: correo
+    attributes:
+      label: Correo institucional
+      placeholder: juan.perez@educa.edu.pe
+    validations:
+      required: true
+
+  - type: input
+    id: sistema_auditado
+    attributes:
+      label: Sistema auditado
+      value: ElectroHogar
+    validations:
+      required: true
+  - type: dropdown
+    id: pagina
+    attributes:
+      label: Pagina donde se observa el problema
+      options:
+        - Inicio y catalogo
+        - Detalle de producto
+        - Carrito
+        - Finalizar compra
+        - Mi cuenta
+        - Todas las paginas
+    validations:
+      required: true
+
+  - type: dropdown
+    id: subcaracteristica
+    attributes:
+      label: Que falla exactamente (elige una sola)
+      options:
+        - El usuario no entiende que hacer a continuacion
+        - El resultado no corresponde a lo que el usuario pidio
+        - Falta informacion o retroalimentacion al usuario
+        - El control es dificil de usar o de alcanzar
+        - El sistema no se adapta a la forma de trabajar del usuario
+        - Ninguna de las anteriores (describir en el detalle)
+    validations:
+      required: true
+
+  - type: textarea
+    id: elemento
+    attributes:
+      label: Elemento que falla
+      description: Describe QUE elemento concreto falla, no la pagina entera.
+      placeholder: "El boton de quitar producto del carrito"
+    validations:
+      required: true
+
+  - type: textarea
+    id: fallo
+    attributes:
+      label: Como se manifiesta el fallo
+      description: Que le pasa al usuario. Usa tus propias palabras.
+      placeholder: "Escribo laptop en el buscador y sigue mostrando los 8 productos como si nada"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduccion
+    attributes:
+      label: Como reproducirlo
+      description: Pasos numerados para que otro alumno lo vea igual.
+      placeholder: "1. Entrar a Inicio  2. Poner 500 en precio desde  3. Poner 2000 en precio hasta"
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidencia
+    attributes:
+      label: Evidencia
+      description: Que observaste o mediste que demuestra el problema. Escribe en tus propias palabras.
+      placeholder: "Al escribir una sola letra en el buscador, la pagina se queda pegada medio segundo"
+    validations:
+      required: true
+
+  - type: upload
+    id: captura
+    attributes:
+      label: Capturas de pantalla
+      description: Adjunta la imagen que demuestra el problema. PNG o JPG hasta 10 MB.
+    validations:
+      required: false
+  - type: dropdown
+    id: severidad
+    attributes:
+      label: Severidad
+      options:
+        - Baja - molesto pero el usuario puede seguir trabajando
+        - Media - dificulta la tarea y obliga a corregir el paso
+        - Alta - impide o hace muy costoso completar la compra
+    validations:
+      required: true
+
+  - type: dropdown
+    id: principio
+    attributes:
+      label: Principio de usabilidad relacionado
+      options:
+        - Visibilidad del estado del sistema
+        - Correspondencia con el mundo real
+        - Control y libertad del usuario
+        - Consistencia y estandar
+        - Prevention of errors (prevenir errores)
+        - Reconocer en vez de recordar
+        - Flexibilidad y eficiencia de uso
+        - No puedo identificarlo con seguridad
+    validations:
+      required: true
+
+  - type: textarea
+    id: solucion
+    attributes:
+      label: Solucion propuesta
+      description: Un cambio concreto y verificable que resolveria el problema.
+      placeholder: "Invertir la comparacion del filtro para que muestre los productos dentro del rango"
+    validations:
+      required: true
+
+  - type: textarea
+    id: conclusion
+    attributes:
+      label: Conclusion tecnica
+      description: Veredicto final en una o dos lineas.
+      placeholder: "El filtro de precio hace lo contrario de lo que dice: descarta los productos que estan en el rango"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: verificacion
+    attributes:
+      label: Verificacion antes de enviar
+      options:
+        - label: Abri el sitio y confirme que el problema sigue presente
+          required: true
+        - label: Documento un solo problema en este Issue
+          required: true
+        - label: Adjunte la evidencia que lo demuestra
+          required: false

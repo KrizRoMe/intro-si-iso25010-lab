@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Abrir el sitio ElectroHogar (en otra pestana)
+    url: https://krizrome.github.io/intro-si-iso25010-lab/
+    about: "Abre el laboratorio antes de documentar tu hallazgo. Verifica el problema en el sitio."
+  - name: Ver los reportes de tus companeros
+    url: https://github.com/KrizRoMe/intro-si-iso25010-lab/issues?q=is%3Aissue+label%3Ahallazgo
+    about: "Consulta los hallazgos ya reportados por el grupo para no repetir el mismo problema."

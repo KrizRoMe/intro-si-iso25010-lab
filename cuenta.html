@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mi cuenta | ElectroHogar</title>
+<link rel="stylesheet" href="css/estilos.css">
+<script src="js/app-legacy.js"></script>
+<script src="js/analitica-pesada.js"></script>
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="contenedor cabecera-inner">
+    <a class="marca" href="index.html">
+      <span class="marca-icono">EH</span>
+      <span>ElectroHogar</span>
+    </a>
+    <nav class="nav-principal">
+      <a href="index.html">Inicio</a>
+      <a href="index.html#catalogo">Catálogo</a>
+      <a href="index.html#catalogo">Ofertas</a>
+      <a href="index.html#catalogo">Novedades</a>
+      <a href="cuenta.html">Mi cuenta</a>
+    </nav>
+    <div class="carro-caja">
+      <a class="carrito-enlace" href="carrito.html">
+        <span>Carrito</span>
+        <span class="carrito-contador" id="contador-carrito">0</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="contenedor">
+  <div class="auth-wrap">
+    <h1>Mi cuenta</h1>
+    <p class="auth-sub">Accede a tu cuenta de ElectroHogar o crea una nueva en segundos.</p>
+
+    <div class="pestanas">
+      <button class="activa" data-panel="login" type="button">Iniciar sesión</button>
+      <button data-panel="registro" type="button">Crear cuenta</button>
+    </div>
+
+    <div id="panel-login">
+      <form novalidate>
+        <div class="campo">
+          <label for="login-email">Correo electrónico</label>
+          <input type="text" id="login-email" name="login-email">
+        </div>
+        <div class="campo">
+          <label for="login-password">Contraseña</label>
+          <input type="text" id="login-password" name="login-password">
+        </div>
+        <button type="submit" class="btn btn-primario btn-bloque">Iniciar sesión</button>
+        <p class="ayuda" style="margin:12px 0 0;text-align:center;">¿Olvidaste tu contraseña? <a href="#">Recupérala aquí</a></p>
+      </form>
+    </div>
+
+    <div id="panel-registro" style="display:none;">
+      <form novalidate>
+        <div class="campo">
+          <label for="reg-nombre">Nombre completo</label>
+          <input type="text" id="reg-nombre" name="reg-nombre">
+        </div>
+        <div class="campo">
+          <label for="reg-email">Correo electrónico</label>
+          <input type="text" id="reg-email" name="reg-email">
+        </div>
+        <div class="campo">
+          <label for="reg-password">Contraseña</label>
+          <input type="text" id="reg-password" name="reg-password">
+        </div>
+        <div class="campo">
+          <label for="reg-telefono">Teléfono</label>
+          <input type="text" id="reg-telefono" name="reg-telefono">
+        </div>
+        <button type="submit" class="btn btn-primario btn-bloque">Crear cuenta</button>
+        <p class="ayuda" style="margin:12px 0 0;text-align:center;">Usando este sitio aceptas nuestros términos y la política de privacidad.</p>
+      </form>
+    </div>
+  </div>
+</main>
+
+<footer class="pie">
+  <div class="contenedor">
+    <div class="pie-copy">© 2026 ElectroHogar S.A.C. · Todos los derechos reservados · RUC 20512345678</div>
+  </div>
+</footer>
+
+<div class="banner-cookies" id="banner-cookies">
+  <div class="contenedor banner-inner">
+    <p>Usamos cookies para mejorar tu experiencia de compra, mostrarte ofertas personalizadas y medir el rendimiento del sitio. Puedes aceptarlas o rechazarlas.</p>
+    <div class="banner-acciones">
+      <button class="btn btn-secundario" id="btn-cookies-no">Rechazar</button>
+      <button class="btn btn-primario" id="btn-cookies-si">Aceptar</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/datos.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

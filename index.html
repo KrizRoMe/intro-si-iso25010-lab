@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ElectroHogar | Tienda de electrodomésticos y tecnología</title>
+<meta name="description" content="ElectroHogar — Compra electrodomésticos, laptops, audio y más. Envío a todo el Perú.">
+<link rel="stylesheet" href="css/estilos.css">
+<script src="js/app-legacy.js"></script>
+<script src="js/analitica-pesada.js" defer></script>
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="contenedor cabecera-inner">
+    <a class="marca" href="index.html">
+      <span class="marca-icono">EH</span>
+      <span>ElectroHogar</span>
+    </a>
+    <nav class="nav-principal">
+      <a href="index.html">Inicio</a>
+      <a href="index.html#catalogo">Catálogo</a>
+      <a href="index.html#catalogo">Ofertas</a>
+      <a href="index.html#catalogo">Novedades</a>
+      <a href="cuenta.html">Mi cuenta</a>
+    </nav>
+    <div class="carro-caja">
+      <a class="carrito-enlace" href="carrito.html">
+        <span>Carrito</span>
+        <span class="carrito-contador" id="contador-carrito">0</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<section class="portada">
+  <div class="contenedor">
+    <h1>ElectroHogar</h1>
+    <p>Electrodomésticos, laptops, audio y gadgets con envío a todo el Perú. Compra en línea de forma rápida y segura.</p>
+    <a class="btn btn-claro" href="#catalogo">Ver catálogo</a>
+    <a class="btn btn-primario" href="cuenta.html" style="margin-left:10px;background:#0d3f5c;">Crear cuenta</a>
+  </div>
+</section>
+
+<main class="contenedor">
+
+  <div class="buscador">
+    <div class="filtro" style="flex:1;">
+      <label for="q-busqueda">Buscar productos</label>
+      <input class="campo-busqueda" type="text" id="q-busqueda" placeholder="Ejemplo: laptop, audífonos, cafetera...">
+    </div>
+    <div class="filtro">
+      <label for="filtro-categoria">Categoría</label>
+      <select id="filtro-categoria">
+        <option value="">Todas las categorías</option>
+      </select>
+    </div>
+    <div class="filtro">
+      <label for="precio-desde">Precio desde (S/)</label>
+      <input class="campo-busqueda" type="number" id="precio-desde" min="0" step="10" placeholder="0" style="width:120px;">
+    </div>
+    <div class="filtro">
+      <label for="precio-hasta">Precio hasta (S/)</label>
+      <input class="campo-busqueda" type="number" id="precio-hasta" min="0" step="10" placeholder="0" style="width:120px;">
+    </div>
+  </div>
+
+  <div class="barra-filtros">
+    <div class="filtro">
+      <label for="orden">Ordenar por</label>
+      <select id="orden">
+        <option value="relevancia">Relevancia</option>
+        <option value="precio-asc">Precio: menor a mayor</option>
+        <option value="precio-desc">Precio: mayor a menor</option>
+        <option value="nombre">Nombre (A-Z)</option>
+      </select>
+    </div>
+    <p class="ayuda" style="margin:0 0 6px;">8 productos disponibles · Envío gratis desde S/ 200</p>
+  </div>
+
+  <section id="catalogo">
+    <div class="grid-productos" id="rejilla"></div>
+  </section>
+
+</main>
+
+<footer class="pie">
+  <div class="contenedor">
+    <div class="pie-cols">
+      <div>
+        <h4>ElectroHogar</h4>
+        <ul>
+          <li><a href="index.html">Tienda</a></li>
+          <li><a href="index.html#catalogo">Catálogo</a></li>
+          <li><a href="carrito.html">Mi carrito</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Ayuda</h4>
+        <ul>
+          <li><a href="index.html">Preguntas frecuentes</a></li>
+          <li><a href="index.html">Envíos y entregas</a></li>
+          <li><a href="index.html">Devoluciones</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Mi cuenta</h4>
+        <ul>
+          <li><a href="cuenta.html">Iniciar sesión</a></li>
+          <li><a href="cuenta.html">Crear cuenta</a></li>
+          <li><a href="index.html">Mis pedidos</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <ul>
+          <li>hola@electrohogar.pe</li>
+          <li>Lima - Perú</li>
+          <li>Lun a Sáb 9am - 8pm</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pie-copy">© 2026 ElectroHogar S.A.C. · Todos los derechos reservados · RUC 20512345678</div>
+  </div>
+</footer>
+
+<div class="banner-cookies" id="banner-cookies">
+  <div class="contenedor banner-inner">
+    <p>Usamos cookies para mejorar tu experiencia de compra, mostrarte ofertas personalizadas y medir el rendimiento del sitio. Puedes aceptarlas o rechazarlas.</p>
+    <div class="banner-acciones">
+      <button class="btn btn-secundario" id="btn-cookies-no">Rechazar</button>
+      <button class="btn btn-primario" id="btn-cookies-si">Aceptar</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/datos.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
