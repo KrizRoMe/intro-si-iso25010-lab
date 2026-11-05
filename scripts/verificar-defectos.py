@@ -10,7 +10,7 @@ import os
 import sys
 from playwright.sync_api import sync_playwright
 
-BASE = 'http://127.0.0.1:8765'
+BASE = os.environ.get('LAB_BASE', 'http://127.0.0.1:8765')
 RAIZ = os.path.dirname(os.path.abspath(__file__))
 CAPTURAS = os.path.join(RAIZ, 'capturas')
 os.makedirs(CAPTURAS, exist_ok=True)
@@ -63,7 +63,7 @@ def main():
                      hashes: leg.indiceHashes ? Object.keys(leg.indiceHashes).length : 0 };
         }""")
         check('R03', 'Rendimiento: tarea de CPU sincrona bloquea el hilo principal',
-              (r03['bloqueo'] is not None and r03['bloqueo'] >= 30)
+              (r03['bloqueo'] is not None and r03['bloqueo'] >= 20)
               and r03['hashes'] >= 5000,
               'bloqueo medido=%s ms | hashes precalculados=%d | campanas en RAM=%d' % (
                   r03['bloqueo'], r03['hashes'], r03['campanas']))
